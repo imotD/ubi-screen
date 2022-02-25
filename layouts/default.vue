@@ -7,14 +7,17 @@
       fixed
       app
     >
-      <v-list>
-        <v-list-item class="ma-auto">
+      <v-list class="py-1">
+        <v-list-item class="px-2">
+          <v-list-item-avatar>
+            <v-img :src="require('@/static/icon.png')"></v-img>
+          </v-list-item-avatar>
           <v-img max-width="100" :src="require('@/static/logo.svg')"></v-img>
         </v-list-item>
       </v-list>
 
       <v-divider></v-divider>
-      <v-list rounded>
+      <v-list :rounded="!miniVariant">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -32,38 +35,67 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar
+      fixed
+      app
+      flat
+      style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); background: white"
+    >
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? "right" : "left"}` }}</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+
+      <v-text-field
+        dense
+        single-line
+        outlined
+        flat
+        clearable
+        hide-details
+        label="Search screen, media, playlist or schedule"
+        prepend-inner-icon="mdi-magnify"
+      ></v-text-field>
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
+      <v-btn icon>
+        <v-icon>mdi-bell-outline</v-icon>
       </v-btn>
-    </v-app-bar> -->
+      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+        <v-list-item-avatar class="mx-auto">
+          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+        </v-list-item-avatar>
+      </v-btn>
+    </v-app-bar>
+
     <v-main>
       <v-container>
         <Nuxt />
       </v-container>
     </v-main>
-    <!-- <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>Jhon Doe</v-list-item-title>
+          <v-list-item-subtitle>admin</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item v-for="item in profile" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
-    </v-navigation-drawer> -->
+    </v-navigation-drawer>
     <!-- footer -->
     <!-- <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
