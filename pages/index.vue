@@ -1,19 +1,35 @@
 <template>
-  <div>
-    <v-breadcrumbs :items="breadcrumbs" divider=">"></v-breadcrumbs>
+  <div class="content">
     <v-row>
-      <v-col>
-        <v-tabs v-model="tab" background-color="transparent" color="orange">
+      <v-col cols="12" class="pa-0">
+        <v-breadcrumbs :items="breadcrumbs" divider=">">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">
+              <span :style="`color: ${item.color}`">
+                {{ item.text }}
+              </span>
+            </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+      </v-col>
+      <v-col cols="12">
+        <v-tabs
+          class="content__border--bottom"
+          v-model="tab"
+          background-color="transparent"
+          color="orange"
+        >
           <v-tab v-for="item in items" :key="item">
             {{ item }}
           </v-tab>
         </v-tabs>
 
         <v-tabs-items v-model="tab">
-          <v-tab-item v-for="item in items" :key="item">
-            <v-card color="basil" flat>
-              <v-card-text>{{ text }}</v-card-text>
-            </v-card>
+          <v-tab-item>
+            <Details />
+          </v-tab-item>
+          <v-tab-item>
+            <Schedule />
           </v-tab-item>
         </v-tabs-items>
       </v-col>
@@ -33,6 +49,7 @@ export default {
         {
           text: "Videotron",
           disabled: false,
+          color: "orange",
           href: "link_1",
         },
         {
