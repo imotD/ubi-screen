@@ -1,11 +1,12 @@
 <template>
+  <!-- :expand-on-hover="!miniVariant" -->
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
+      permanent
       app
+      fixed
     >
       <v-list class="py-1">
         <v-list-item class="px-2">
@@ -35,6 +36,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <!-- navbar -->
     <v-app-bar
       fixed
       app
@@ -55,15 +57,42 @@
         label="Search screen, media, playlist or schedule"
         prepend-inner-icon="mdi-magnify"
       ></v-text-field>
+
       <v-spacer />
+
       <v-btn icon>
         <v-icon>mdi-bell-outline</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-list-item-avatar class="mx-auto">
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
-        </v-list-item-avatar>
-      </v-btn>
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <div v-bind="attrs" v-on="on" class="d-flex align-center">
+            <v-list-item-avatar class="mx-auto">
+              <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+            </v-list-item-avatar>
+            <template v-if="!$vuetify.breakpoint.mobile">
+              <v-list-item class="pr-0" two-line>
+                <v-list-item-content>
+                  <v-list-item-title>Jhone Doe</v-list-item-title>
+                  <v-list-item-subtitle>Admin</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-btn icon>
+                <v-icon>
+                  mdi-{{
+                    `chevron-${attrs["aria-expanded"] ? "down" : "up"}`
+                  }}</v-icon
+                >
+              </v-btn>
+            </template>
+          </div>
+        </template>
+        <v-list>
+          <v-list-item v-for="(item, index) in items" :key="index">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -71,35 +100,6 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list-item two-line>
-        <v-list-item-avatar>
-          <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>Jhon Doe</v-list-item-title>
-          <v-list-item-subtitle>admin</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item v-for="item in profile" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <!-- footer -->
-    <!-- <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
   </v-app>
 </template>
 
@@ -108,7 +108,9 @@ export default {
   name: "DefaultLayout",
   data() {
     return {
-      clipped: false,
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
       drawer: false,
       fixed: false,
       items: [
@@ -153,10 +155,6 @@ export default {
           to: "/settings",
         },
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: "Vuetify.js",
     };
   },
 };
