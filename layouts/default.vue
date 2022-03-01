@@ -1,5 +1,4 @@
 <template>
-  <!-- :expand-on-hover="!miniVariant" -->
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
