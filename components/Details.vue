@@ -42,7 +42,7 @@
                   <v-icon> mdi-map-marker </v-icon>
                 </v-col>
                 <v-col>
-                  <p class="caption">
+                  <p class="caption pl-2">
                     Mall Taman Pelem lt 8, Cengkareng, Jakarta Barat. DKI
                     Jakarta
                   </p>

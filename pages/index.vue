@@ -12,7 +12,7 @@
           </template>
         </v-breadcrumbs>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="mb-5">
         <v-tabs
           class="content__border--bottom"
           v-model="tab"
@@ -55,6 +55,7 @@ export default {
         {
           text: "UB0022373 - Videotron 001",
           disabled: true,
+          color: "black",
           href: "link_2",
         },
       ],

@@ -1,6 +1,6 @@
 <template>
   <v-row class="fill-height">
-    <v-col>
+    <v-col cols="12">
       <v-sheet height="64">
         <v-toolbar flat>
           <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
@@ -9,20 +9,20 @@
           <v-btn fab text small color="grey darken-2" @click="prev">
             <v-icon small> mdi-chevron-left </v-icon>
           </v-btn>
+          <v-toolbar-title v-if="$refs.calendar" class="text-subtitle-2">
+            {{ $refs.calendar.title }}
+          </v-toolbar-title>
           <v-btn fab text small color="grey darken-2" @click="next">
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}
-          </v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
       </v-sheet>
-      <v-sheet height="600">
+      <v-sheet height="650">
         <v-calendar
           ref="calendar"
           v-model="focus"
-          color="primary"
+          color="orange"
           type="week"
           category-show-all
           :categories="categories"
@@ -31,6 +31,7 @@
           @change="fetchEvents"
         >
           <template v-slot:day-body="{ date, week }">
+            {{ date }}{{ week }}
             <div
               class="v-current-time"
               :class="{ first: date === week[0].date }"
@@ -150,7 +151,7 @@ export default {
 <style lang="scss">
 .v-current-time {
   height: 2px;
-  background-color: #ea4335;
+  background-color: orange;
   position: absolute;
   left: -1px;
   right: 0;
@@ -159,7 +160,7 @@ export default {
   &.first::before {
     content: "";
     position: absolute;
-    background-color: #ea4335;
+    background-color: rgb(255, 145, 0);
     width: 12px;
     height: 12px;
     border-radius: 50%;
