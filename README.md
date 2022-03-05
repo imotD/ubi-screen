@@ -1,4 +1,9 @@
-# ubi-test
+# Dashboard - UbiScreen
+Test Front-end on Ubiklan
+
+<center>
+<img src="./static/mobile.png" width="500">
+</center>
 
 ## Build Setup
 
